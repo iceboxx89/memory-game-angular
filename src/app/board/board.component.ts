@@ -10,11 +10,14 @@ import { Timer, pad } from 'interval-timer';
 import { HttpClient } from '@angular/common/http';
 import { TileComponent } from './../tile/tile.component';
 
+
 interface ImagesData {
   url: string;
-  tileText: string;
 }
 
+/**
+ * Interface of the api response from dog.ceo
+ */
 interface ApiResponse {
   message: any[];
   status: string;
@@ -61,19 +64,18 @@ export class BoardComponent implements OnInit {
     const _url = `https://dog.ceo/api/breeds/image/random/${this.imagesNeeded}`;
     this.http.get(_url).subscribe(
       (result: ApiResponse) => {
-        let tempArray: number[] = [];
+        const tempArray: number[] = [];
         for (let row = 0; row < this.numRows; row++) {
           for (let col = 0; col < this.numColumns; col++) {
             // find the indexes
             const imageToUse = this.getImageToUse(
               tempArray, Math.floor(Math.random() * this.imagesNeeded)
             );
-            console.log(`row: ${row} column: ${col}: ${imageToUse}`);
             tempArray.push(imageToUse);
           }
         }
         tempArray.forEach( (idx) => {
-          this.images.push({ url: result.message[idx], tileText: 'Pick Me!!'});
+          this.images.push({ url: result.message[idx]});
         });
         // setup the timer...
         this.intervalTimer = new Timer({

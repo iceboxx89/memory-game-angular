@@ -33,8 +33,10 @@ export class TileComponent implements OnInit {
   }
 
   showPicture() {
-    this.canShowPicture = true;
-    this.pictureShown.emit(this.imageUrl);
+    if (this.inPlay) {
+      this.canShowPicture = true;
+      this.pictureShown.emit(this.imageUrl);
+    }
   }
 
   matched() {
