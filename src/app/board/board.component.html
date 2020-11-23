@@ -8,14 +8,14 @@
   </div>
 </div>
 
-<div [@startGame]='gameState' *ngIf='gameState === "start"' style="width: 100%; padding-top: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-  <div>
+<div [@startGame]='gameState' *ngIf='gameState === "start"' class="board">
+  <div style="padding-top: 20px;">
     <span class="text-light">Time: {{gameTimer}}</span>
   </div>
   <div class="divider" style="width: 50%"></div>
-  <div style="width: 70%; height: inherit;">
+  <div style="width: 80%; height: 100%;">
     <div class="board-container">
-      <div *ngFor="let item of images" style="height:250px;">
+      <div *ngFor="let item of images" style="height:220px;">
         <app-tile imageUrl="{{item.url}}" style='width: inherit; height: inherit;'
           (pictureShown)="checkMatches($event)">>
         </app-tile>
