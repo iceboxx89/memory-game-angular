@@ -1,0 +1,35 @@
+<div [@startGame]='gameState'
+  style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <div class="hero hero-sm bg-gray" *ngIf='gameState === "end"' style="width: 500px; height: auto;">
+    <div class="hero-body">
+      <h1>Memory game</h1>
+      <p>The classic memory game, with rondom dog pics</p>
+      <button class="btn" (click)='startGame()'>Play...</button>
+    </div>
+  </div>
+  <div *ngIf='gameState === "start"'>
+    <span class="text-light">Time: {{gameTimer}}</span>
+  </div>
+  <div class="divider" style="width: 50%" *ngIf='gameState === "start"'></div>
+  <div style="width: 70%; height: auto;" *ngIf='gameState === "start"'>
+    <div class="board-container">
+      <div *ngFor="let item of images" style="height:250px;">
+        <app-tile
+        imageUrl="{{item.url}}"
+        style='width: inherit; height: inherit;'
+        (pictureShown)="checkMatches($event)">>
+      </app-tile>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay" *ngIf="winnerAnnounce">
+  <div class="toast toast-primary">
+    <button class="btn btn-clear float-right" (click)="resetGame();"></button>
+    <br>
+    <br>
+    <br>
+    Woot!! That was fast! It took just {{gameTimer}} seconds for you
+    to solve the board.
+  </div>
+</div>
